@@ -8,6 +8,8 @@
 
 == SYNOPSIS:
 
+  # read/write data at http://Gyazz.com/test/test
+  require 'gyazz'
   g = Gyazz.new('test')
   text = g.get('test')
   g.set('test','abcdefg')
