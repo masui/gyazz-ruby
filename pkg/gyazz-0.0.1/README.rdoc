@@ -4,10 +4,12 @@
 
 == DESCRIPTION:
 
-  Read/write Gyazz data
+* Read/write Gyazz data
 
 == SYNOPSIS:
 
+  # read/write data at http://Gyazz.com/test/test
+  require 'gyazz'
   g = Gyazz.new('test')
   text = g.get('test')
   g.set('test','abcdefg')
@@ -16,7 +18,7 @@
 
 (The MIT License)
 
-Copyright (c) 2012 FIXME full name
+Copyright (c) 2012 Toshiyuki Masui
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

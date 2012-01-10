@@ -4,7 +4,7 @@ $:.unshift(File.dirname(__FILE__)) unless
 require 'net/http'
 
 class Gyazz
-  VERSION = '0.0.1'
+  VERSION = '0.0.2'
 
   def initialize(name,user=nil,pass=nil)
     @name = name
