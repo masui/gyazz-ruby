@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require File.dirname(__FILE__) + '/test_helper.rb'
 
 class TestGyazz < Test::Unit::TestCase
@@ -30,5 +31,17 @@ class TestGyazz < Test::Unit::TestCase
     assert_equal(g.get('test'),'abcdefg')
     g.set('test','99999')
     assert_equal(g.get('test'),'99999')
+  end
+
+  def __test_exception
+    # 通信失敗をエミュレーションするにはどうするのか?
+    error = ''
+    begin
+      g = Gyazz.new('testxxxx')
+      s = g.get('nonexistent page')
+    rescue => e
+      error = e.to_s
+    end
+    assert(error != '')
   end
 end

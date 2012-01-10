@@ -4,7 +4,7 @@ $:.unshift(File.dirname(__FILE__)) unless
 require 'net/http'
 
 class Gyazz
-  VERSION = '0.0.2'
+  VERSION = '0.0.3'
 
   def initialize(name,user=nil,pass=nil)
     @name = name
@@ -13,16 +13,18 @@ class Gyazz
   end
   
   def http_get(addr)
-    ret = ''
+    ret = nil
     begin
       Net::HTTP.start('gyazz.com', 80) {|http|
         req = Net::HTTP::Get.new(addr)
         req.basic_auth @user,@pass if @user
         response = http.request(req)
+        raise "status code error (#{response.code})" if response.code != "200"
         ret = response.body
       }
     rescue
     end
+    raise "http_get failed" if ret == nil
     ret.chomp
   end
   
@@ -35,6 +37,7 @@ class Gyazz
       }
     rescue
     end
+    raise "List failed" if ret == nil
     return ret
   end
   
@@ -44,6 +47,7 @@ class Gyazz
       s = http_get("/#{@name}/#{title.gsub(/ /,'%20')}/text")
     rescue
     end
+    raise "text failed" if s == nil
     return s
   end
   
@@ -52,12 +56,17 @@ class Gyazz
       val = val.join("\n")
     end
     data = @name + "\n" + title + "\n" + val
-    Net::HTTP.start('gyazz.com', 80) {|http|
-      req = Net::HTTP::Post.new('/__write__')
-      req.set_form_data('data' => data)
-      req.basic_auth @user,@pass if @user
-      response = http.request(req)
-    }
+    begin
+      Net::HTTP.start('gyazz.com', 80) {|http|
+        req = Net::HTTP::Post.new('/__write__')
+        req.set_form_data('data' => data)
+        req.basic_auth @user,@pass if @user
+        response = http.request(req)
+        raise "status code error (#{response.code})" if response.code != "302"
+      }
+    rescue
+      raise "settext failed"
+    end
   end
   
   def get(title)
