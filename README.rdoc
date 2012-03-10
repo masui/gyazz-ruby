@@ -13,6 +13,8 @@
   g = Gyazz.new('test')
   text = g.get('test')
   g.set('test','abcdefg')
+  list = g.list # => get all titles
+  related = g.related('test') # => get related titles from a title
 
 == LICENSE:
 

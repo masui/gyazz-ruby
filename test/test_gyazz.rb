@@ -33,6 +33,18 @@ class TestGyazz < Test::Unit::TestCase
     assert_equal(g.get('test'),'99999')
   end
 
+  def test_related
+    g = Gyazz.new('test')
+    g.set('test','[[abc]] [[def]]')
+    related = g.related('test')
+    assert_equal(related.length,2)
+
+    g.set('test','xxx')
+    assert_equal(g.get('test'),"xxx")
+    related = g.related('test')
+    assert_equal(related.length,0)
+  end
+  
   def __test_exception
     # 通信失敗をエミュレーションするにはどうするのか?
     error = ''

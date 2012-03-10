@@ -4,7 +4,7 @@ $:.unshift(File.dirname(__FILE__)) unless
 require 'net/http'
 
 class Gyazz
-  VERSION = '0.0.3'
+  VERSION = '0.0.4'
 
   def initialize(name,user=nil,pass=nil)
     @name = name
@@ -82,5 +82,19 @@ class Gyazz
       yield title
     }
   end
+
+  def related(title)
+    ret = []
+    begin
+      s = http_get("/#{@name}/#{title.gsub(/ /,'%20')}/related")
+      if s.match(/^\[/) then
+        ret = eval(s)
+      end
+    rescue
+    end
+    # raise "Related failed" if ret == nil
+    return ret
+  end
+  
 end
 
