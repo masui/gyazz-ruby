@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 require 'net/http'
 
 class Gyazz
-  VERSION = '0.0.4'
+  VERSION = '0.0.5'
 
   def initialize(name,user=nil,pass=nil)
     @name = name
@@ -27,13 +28,14 @@ class Gyazz
     raise "http_get failed" if ret == nil
     ret.chomp
   end
-  
+
   def list
-    ret = nil
+    # collect がタイムアウトするので
     begin
       s = http_get("/#{@name}/__list")
-      ret = eval(s).collect { |e|
-        e[0]
+      ret = []
+      eval(s).each { |e|
+        ret << e[0]
       }
     rescue
     end
