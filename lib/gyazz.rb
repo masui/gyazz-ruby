@@ -5,7 +5,7 @@ $:.unshift(File.dirname(__FILE__)) unless
 require 'net/http'
 
 class Gyazz
-  VERSION = '0.0.5'
+  VERSION = '0.0.6'
 
   def initialize(name,user=nil,pass=nil)
     @name = name
@@ -31,6 +31,7 @@ class Gyazz
 
   def list
     # collect がタイムアウトするので
+    ret = nil
     begin
       s = http_get("/#{@name}/__list")
       ret = []
@@ -40,6 +41,34 @@ class Gyazz
     rescue
     end
     raise "List failed" if ret == nil
+    return ret
+  end
+  
+  def access(title)
+    ret = nil
+    begin
+      s = http_get("/#{@name}/#{title.gsub(/ /,'%20')}/__access")
+      ret = []
+      eval(s).each { |e|
+        ret << e
+      }
+    rescue
+    end
+    raise "Access failed" if ret == nil
+    return ret
+  end
+  
+  def modify(title)
+    ret = nil
+    begin
+      s = http_get("/#{@name}/#{title.gsub(/ /,'%20')}/__modify")
+      ret = []
+      eval(s).each { |e|
+        ret << e
+      }
+    rescue
+    end
+    raise "Modify failed" if ret == nil
     return ret
   end
   
