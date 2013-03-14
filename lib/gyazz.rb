@@ -90,7 +90,7 @@ class Gyazz
     end
     data = @name + "\n" + title + "\n" + val
     begin
-      Net::HTTP.start(host, 80) {|http|
+      Net::HTTP.start(@host, 80) {|http|
         req = Net::HTTP::Post.new('/__write__')
         req.set_form_data('data' => data)
         req.basic_auth @user,@pass if @user
