@@ -3,20 +3,22 @@ $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 require 'net/http'
+require 'json'
 
 class Gyazz
-  VERSION = '0.0.6'
+  VERSION = '0.0.8'
 
-  def initialize(name,user=nil,pass=nil)
+  def initialize(name,user=nil,pass=nil,host=nil)
     @name = name
     @user = user
     @pass = pass
+    @host = (host ? host : 'gyazz.com')
   end
   
   def http_get(addr)
     ret = nil
     begin
-      Net::HTTP.start('gyazz.com', 80) {|http|
+      Net::HTTP.start(@host, 80) {|http|
         req = Net::HTTP::Get.new(addr)
         req.basic_auth @user,@pass if @user
         response = http.request(req)
@@ -88,7 +90,7 @@ class Gyazz
     end
     data = @name + "\n" + title + "\n" + val
     begin
-      Net::HTTP.start('gyazz.com', 80) {|http|
+      Net::HTTP.start(host, 80) {|http|
         req = Net::HTTP::Post.new('/__write__')
         req.set_form_data('data' => data)
         req.basic_auth @user,@pass if @user
@@ -103,7 +105,7 @@ class Gyazz
   def get(title)
     text(title)
   end
-  
+
   def set(title,val)
     settext(title,val)
   end
