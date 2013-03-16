@@ -6,7 +6,7 @@ require 'net/http'
 require 'json'
 
 class Gyazz
-  VERSION = '0.0.8'
+  VERSION = '0.0.9'
 
   def initialize(name,user=nil,pass=nil,host=nil)
     @name = name
@@ -130,4 +130,3 @@ class Gyazz
   end
   
 end
-

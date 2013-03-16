@@ -31,6 +31,13 @@ class TestGyazz < Test::Unit::TestCase
     assert_equal(g.get('test'),'abcdefg')
     g.set('test','99999')
     assert_equal(g.get('test'),'99999')
+
+    gx = Gyazz.new('test_auth','xxx','yyy')
+    begin
+      gx.set('test','11111')
+    rescue
+    end
+    assert_equal(g.get('test'),'99999')
   end
 
   def test_related
