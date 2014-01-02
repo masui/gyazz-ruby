@@ -26,11 +26,23 @@ module Gyazz
     end
 
     def get(path)
-      HTTParty.get "#{@host}#{path}", :basic_auth => @basic_auth
+      res = HTTParty.get "#{@host}#{path}", :basic_auth => @basic_auth
+      case res.code
+      when 200
+        return res.body
+      else
+        raise Gyazz::Error, res.body
+      end
     end
 
     def post(path, opts)
-      HTTParty.post "#{@host}#{path}", opts
+      res = HTTParty.post "#{@host}#{path}", opts
+      case res.code
+      when 200
+        return res.body
+      else
+        raise Gyazz::Error, res.body
+      end
     end
 
     def pages

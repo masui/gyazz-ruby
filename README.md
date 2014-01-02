@@ -55,6 +55,18 @@ puts wiki.page('page_name').text
 ```
 
 
+Test
+----
+
+    % gem install bundler
+    % bundle install
+    % bundle exec rake test
+
+test with local gyazz
+
+    % GYAZZ_HOST="http://localhost:3000" bundle exec rake test
+
+
 Contributing
 ------------
 1. Fork it
