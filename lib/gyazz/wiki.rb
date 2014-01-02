@@ -36,6 +36,7 @@ module Gyazz
     end
 
     def post(path, opts)
+      opts[:basic_auth] = @basic_auth if @basic_auth
       res = HTTParty.post "#{@host}#{path}", opts
       case res.code
       when 200

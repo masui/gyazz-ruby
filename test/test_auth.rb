@@ -26,4 +26,23 @@ class TestWikiAuth < MiniTest::Test
     end
   end
 
+  def test_auth_page_get_fail
+    page = @wiki.page('aaa')
+    err = nil
+    begin
+      page.text
+    rescue => e
+      err = e
+    end
+    assert_equal err.class, Gyazz::Error
+  end
+
+  def test_auth_page_get_set
+    @wiki.auth = {:username => 'test_username', :password => 'test_password'}
+    page = @wiki.page('aaa')
+    body = ["foo", "bar", Time.now.to_s].join("\n")
+    page.text = body
+    assert_equal page.text.strip, body
+  end
+
 end
