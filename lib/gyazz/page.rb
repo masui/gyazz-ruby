@@ -26,8 +26,8 @@ module Gyazz
                  })
     end
 
-    def data(opts = {:version => 0})
-      JSON.parse @wiki.get("/#{URI.encode @wiki.name}/#{URI.encode @name}/json/#{opts[:version]}")
+    def data(query = {:version => 0})
+      JSON.parse @wiki.get("/#{URI.encode @wiki.name}/#{URI.encode @name}/json", query)
     end
 
     def access

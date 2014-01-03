@@ -25,8 +25,8 @@ module Gyazz
       Page.new name, self
     end
 
-    def get(path)
-      res = HTTParty.get "#{@host}#{path}", :basic_auth => @basic_auth
+    def get(path, query={})
+      res = HTTParty.get "#{@host}#{path}", :query => query, :basic_auth => @basic_auth
       case res.code
       when 200
         return res.body
@@ -47,7 +47,7 @@ module Gyazz
     end
 
     def pages
-      JSON.parse(self.get "/#{@name}/__list").map{|i|
+      JSON.parse(self.get "/#{URI.encode @name}/__list").map{|i|
         Page.new(i[0], self)
       }
     end
