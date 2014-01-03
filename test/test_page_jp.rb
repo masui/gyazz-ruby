@@ -1,16 +1,17 @@
+# -*- coding: utf-8 -*-
 require File.expand_path 'test_helper', File.dirname(__FILE__)
 
-class TestPage < MiniTest::Test
+class TestPageJp < MiniTest::Test
 
   def setup
-    @wiki = Gyazz::Wiki.new('test')
+    @wiki = Gyazz::Wiki.new('テスト')
     @wiki.host = ENV['GYAZZ_HOST'] if ENV.has_key? 'GYAZZ_HOST'
-    @page = @wiki.page('aaa')
+    @page = @wiki.page('あああ')
   end
 
   def test_url
     host = ENV['GYAZZ_HOST'] || 'http://gyazz.com'
-    assert_equal @page.url , "#{host}/#{@wiki.name}/#{@page.name}"
+    assert_equal @page.url , "#{host}/#{URI.encode @wiki.name}/#{URI.encode @page.name}"
   end
 
   def test_get_text
