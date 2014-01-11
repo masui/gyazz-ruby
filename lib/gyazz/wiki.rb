@@ -25,8 +25,9 @@ module Gyazz
       Page.new name, self
     end
 
-    def get(path, query={})
-      res = HTTParty.get "#{@host}#{path}", :query => query, :basic_auth => @basic_auth
+    def get(path, opts={})
+      opts[:basic_auth] = @basic_auth if @basic_auth and !opts.has_key?(:basic_auth)
+      res = HTTParty.get "#{@host}#{path}", opts
       case res.code
       when 200
         return res.body
@@ -35,8 +36,8 @@ module Gyazz
       end
     end
 
-    def post(path, opts)
-      opts[:basic_auth] = @basic_auth if @basic_auth
+    def post(path, opts={})
+      opts[:basic_auth] = @basic_auth if @basic_auth and !opts.has_key?(:basic_auth)
       res = HTTParty.post "#{@host}#{path}", opts
       case res.code
       when 200
@@ -46,8 +47,8 @@ module Gyazz
       end
     end
 
-    def pages
-      JSON.parse(self.get "/#{URI.encode @name}/__list").map{|i|
+    def pages(opts={})
+      JSON.parse(self.get "/#{URI.encode @name}/__list", opts).map{|i|
         Page.new(i[0], self)
       }
     end

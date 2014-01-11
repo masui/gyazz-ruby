@@ -20,4 +20,12 @@ class TestWiki < MiniTest::Test
     end
   end
 
+  def test_pages_with_options
+    pages = @wiki.pages :timeout => 120
+    assert_equal pages.class, Array
+    pages.each do |page|
+      assert_equal page.class, Gyazz::Page
+    end
+  end
+
 end

@@ -8,10 +8,13 @@ class TestPage < MiniTest::Test
     @page = @wiki.page('aaa')
   end
 
+  def test_title_name
+    assert_equal @page.title, @page.name
+  end
+
   def test_url
     host = ENV['GYAZZ_HOST'] || 'http://gyazz.com'
     assert_equal @page.url , "#{host}/#{@wiki.name}/#{@page.name}"
-    assert_equal @page.url , "#{host}/#{@wiki.name}/#{@page.title}"
   end
 
   def test_get_text
