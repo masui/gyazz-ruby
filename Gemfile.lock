@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gyazz (1.0.2)
+    gyazz (1.0.3)
       httparty
       json
 
