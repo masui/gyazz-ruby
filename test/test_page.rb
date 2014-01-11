@@ -5,7 +5,7 @@ class TestPage < MiniTest::Test
   def setup
     @wiki = Gyazz::Wiki.new('test')
     @wiki.host = ENV['GYAZZ_HOST'] if ENV.has_key? 'GYAZZ_HOST'
-    @page = @wiki.page('aaa')
+    @page = @wiki.page("aaa_ruby#{RUBY_VERSION}")
   end
 
   def test_title_name

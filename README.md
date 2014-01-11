@@ -5,6 +5,7 @@ Read/write Gyazz data
 - https://github.com/masui/gyazz-ruby
 - https://rubygems.org/gems/gyazz
 
+![Travis-CI build status](https://travis-ci.org/masui/gyazz-ruby.png)
 
 Installation
 ------------

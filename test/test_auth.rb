@@ -48,7 +48,7 @@ class TestWikiAuth < MiniTest::Test
 
   def test_auth_page_get_set
     @wiki.auth = @auth
-    page = @wiki.page('aaa')
+    page = @wiki.page("aaa_ruby#{RUBY_VERSION}")
     body = ["foo", "bar", Time.now.to_s].join("\n")
     page.text = body
     assert_equal page.text.strip, body
