@@ -6,7 +6,7 @@ class TestPageJp < MiniTest::Test
   def setup
     @wiki = Gyazz::Wiki.new('テスト')
     @wiki.host = ENV['GYAZZ_HOST'] if ENV.has_key? 'GYAZZ_HOST'
-    @page = @wiki.page('あああ')
+    @page = @wiki.page("あああ_ruby#{RUBY_VERSION}")
   end
 
   def test_url
