@@ -12,6 +12,10 @@ module Gyazz
       "#{@wiki.url}/#{URI.encode @name}"
     end
 
+    def title
+      @name
+    end
+
     def text
       @wiki.get("/#{URI.encode @wiki.name}/#{URI.encode @name}/text")
     end

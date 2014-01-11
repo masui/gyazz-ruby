@@ -1,17 +1,21 @@
 PATH
   remote: .
   specs:
-    gyazz (1.0.0)
+    gyazz (1.0.2)
       httparty
       json
+      launchy
 
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.3.5)
     httparty (0.12.0)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     json (1.8.1)
+    launchy (2.4.2)
+      addressable (~> 2.3)
     minitest (5.2.0)
     multi_xml (0.5.5)
     rake (10.1.1)
