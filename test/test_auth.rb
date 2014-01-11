@@ -5,6 +5,7 @@ class TestWikiAuth < MiniTest::Test
   def setup
     @wiki = Gyazz::Wiki.new 'test_auth'
     @wiki.host = ENV['GYAZZ_HOST'] if ENV.has_key? 'GYAZZ_HOST'
+    @auth = {:username => 'test_username', :password => 'test_password'}
   end
 
   def test_auth_fail
@@ -18,7 +19,7 @@ class TestWikiAuth < MiniTest::Test
   end
 
   def test_auth
-    @wiki.auth = {:username => 'test_username', :password => 'test_password'}
+    @wiki.auth = @auth
     pages = @wiki.pages
     assert_equal pages.class, Array
     pages.each do |page|
@@ -37,8 +38,16 @@ class TestWikiAuth < MiniTest::Test
     assert_equal err.class, Gyazz::Error
   end
 
+  def test_manually_auth
+    pages = @wiki.pages(:basic_auth => @auth)
+    assert_equal pages.class, Array
+    pages.each do |page|
+      assert_equal page.class, Gyazz::Page
+    end
+  end
+
   def test_auth_page_get_set
-    @wiki.auth = {:username => 'test_username', :password => 'test_password'}
+    @wiki.auth = @auth
     page = @wiki.page('aaa')
     body = ["foo", "bar", Time.now.to_s].join("\n")
     page.text = body
