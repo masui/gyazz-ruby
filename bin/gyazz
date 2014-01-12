@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+#
+# % gyazz wikiname pagename
+#
+
+require 'gyazz'
+
+def usage
+  puts "% gyazz wikiname pagename"
+  exit
+end
+
+wikiname = ARGV.shift
+title = ARGV.shift
+
+usage if wikiname.nil? || title.nil?
+
+wiki = Gyazz::Wiki.new(wikiname)
+wiki.host = 'http://Gyazz.com'
+page = wiki.page(title)
+puts page.text
+
+
+
