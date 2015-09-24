@@ -11,11 +11,11 @@ module Gyazz
     end
 
     def url
-      "#{@wiki.url}/#{URI.encode @name}"
+      "#{@wiki.url}/#{ERB::Util.url_encode @name}"
     end
 
     def text(opts={})
-      @wiki.get("/#{URI.encode @wiki.name}/#{URI.encode @name}/text", opts)
+      @wiki.get("/#{ERB::Util.url_encode @wiki.name}/#{ERB::Util.url_encode @name}/text", opts)
     end
 
     def text=(str_or_arr, opts={})
@@ -31,19 +31,19 @@ module Gyazz
     end
 
     def data(opts={:query => {:version => 0}})
-      JSON.parse @wiki.get("/#{URI.encode @wiki.name}/#{URI.encode @name}/json", opts)
+      JSON.parse @wiki.get("/#{ERB::Util.url_encode @wiki.name}/#{ERB::Util.url_encode @name}/json", opts)
     end
 
     def access(opts={})
-      JSON.parse @wiki.get("/#{URI.encode @wiki.name}/#{URI.encode @name}/__access", opts)
+      JSON.parse @wiki.get("/#{ERB::Util.url_encode @wiki.name}/#{ERB::Util.url_encode @name}/__access", opts)
     end
 
     def modify(opts={})
-      JSON.parse @wiki.get("/#{URI.encode @wiki.name}/#{URI.encode @name}/__modify", opts)
+      JSON.parse @wiki.get("/#{ERB::Util.url_encode @wiki.name}/#{ERB::Util.url_encode @name}/__modify", opts)
     end
 
     def related_pages(opts={})
-      url = "/#{URI.encode @wiki.name}/#{URI.encode @name}/related"
+      url = "/#{ERB::Util.url_encode @wiki.name}/#{ERB::Util.url_encode @name}/related"
       JSON.parse(@wiki.get(url, opts)).map{|name|
         Page.new name, @wiki
       }

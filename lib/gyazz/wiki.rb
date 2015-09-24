@@ -10,7 +10,7 @@ module Gyazz
     end
 
     def url
-      "#{@host}/#{URI.encode @name}"
+      "#{@host}/#{ERB::Util.url_encode @name}"
     end
 
     def host=(host)
@@ -48,7 +48,7 @@ module Gyazz
     end
 
     def pages(opts={})
-      JSON.parse(self.get "/#{URI.encode @name}/__list", opts).map{|i|
+      JSON.parse(self.get "/#{ERB::Util.url_encode @name}/__list", opts).map{|i|
         Page.new(i[0], self)
       }
     end

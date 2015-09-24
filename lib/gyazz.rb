@@ -1,5 +1,6 @@
 require 'json'
 require 'httparty'
+require 'erb'
 
 require 'gyazz/version'
 require 'gyazz/error'
